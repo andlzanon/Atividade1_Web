@@ -32,6 +32,9 @@ public class HotelDAO {
     private final static String LISTAR_HOTEIS_CIDADE_SQL = 
             "select cnpj, nome, cidade from Hotel where cidade = ?";
     
+    private final static String LISTAR_HOTEL_NOME_SQL = 
+            "select cnpj, nome, cidade, senha from Hotel where nome = ?";
+    
     private DataSource dataSource;
 
     public HotelDAO(DataSource dataSource) {
@@ -87,5 +90,22 @@ public class HotelDAO {
     }
     
     
-            
+    public Hotel listarHotelPorNome(String nome) throws SQLException, NamingException{
+        Hotel ret = null;
+        try (Connection con = dataSource.getConnection();
+                PreparedStatement ps = con.prepareStatement(LISTAR_HOTEL_NOME_SQL)) {
+            ps.setString(1, nome);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    ret = new Hotel();
+                    ret.setCnpj(rs.getString("cnpj"));
+                    ret.setNome(rs.getString("nome"));
+                    ret.setCidade(rs.getString("cidade"));
+                    ret.setSenha(rs.getString("senha"));
+                }
+            }
+        }
+        return ret;
+    }
+           
 }

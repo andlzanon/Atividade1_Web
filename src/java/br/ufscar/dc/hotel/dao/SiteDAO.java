@@ -9,6 +9,7 @@ import br.ufscar.dc.hotel.beans.Hotel;
 import br.ufscar.dc.hotel.beans.Site;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.naming.NamingException;
@@ -22,6 +23,9 @@ public class SiteDAO {
     
     private final static String CADASTRAR_SITE_SQL = 
             "insert into Site(url, nome, telefone, senha) values(?,?,?,?)";
+    
+    private final static String SITE_NOME_SQL = 
+            "select url, nome, telefone, senha from Site where url = ?";
     
     private DataSource dataSource;
 
@@ -40,5 +44,23 @@ public class SiteDAO {
         }
         
         return s;
+    }
+    
+    public Site listarAdmPorNome(String usuario) throws SQLException, NamingException{
+        Site ret = null;
+        try (Connection con = dataSource.getConnection();
+                PreparedStatement ps = con.prepareStatement(SITE_NOME_SQL)){
+            ps.setString(1, usuario);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    ret = new Site();
+                    ret.setUrl(rs.getString("url"));
+                    ret.setSenha(rs.getString("senha"));
+                    ret.setTelefone(rs.getString("telefone"));
+                    ret.setNome(rs.getString("nome"));
+                }
+            }
+        }
+        return ret;
     }
 }
