@@ -24,7 +24,7 @@
         </form>
         
         <form action="login.jsp?permissao=site&acao=sitelist" method="post">
-            <a>Pesquisar promoções por site:</a><input name="cidade" type="text" value=""/> <input type="submit" value="Procurar"/>
+            <a>Pesquisar promoções por site:</a><input name="site" type="text" value=""/> <input type="submit" value="Procurar"/>
         </form>
         
     </body>

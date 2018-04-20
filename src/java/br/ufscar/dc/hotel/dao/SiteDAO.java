@@ -46,11 +46,11 @@ public class SiteDAO {
         return s;
     }
     
-    public Site listarAdmPorNome(String usuario) throws SQLException, NamingException{
+    public Site listaSitePorUrl(String site) throws SQLException, NamingException{
         Site ret = null;
         try (Connection con = dataSource.getConnection();
                 PreparedStatement ps = con.prepareStatement(SITE_NOME_SQL)){
-            ps.setString(1, usuario);
+            ps.setString(1, site);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     ret = new Site();

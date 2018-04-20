@@ -7,8 +7,10 @@ package br.ufscar.dc.hotel.servlets;
 
 import br.ufscar.dc.hotel.beans.Administrador;
 import br.ufscar.dc.hotel.beans.Hotel;
+import br.ufscar.dc.hotel.beans.Site;
 import br.ufscar.dc.hotel.dao.AdministradorDAO;
 import br.ufscar.dc.hotel.dao.HotelDAO;
+import br.ufscar.dc.hotel.dao.SiteDAO;
 import br.ufscar.dc.hotel.forms.LoginFormBean;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -70,7 +72,7 @@ public class LoginServlet extends HttpServlet {
                 HotelDAO hotelDAO = new HotelDAO(dataSource);
                 Hotel hotel = null;
                 hotel = hotelDAO.listarHotelPorNome(lfb.getUsuario());
-                if(hotel.getSenha().equals(lfb.getSenha())){
+                if(hotel != null && hotel.getSenha().equals(lfb.getSenha())){
                     if (request.getParameter("acao").equals("cadastro")) {
                         System.out.println("Go to cadastro de promocao");
                     } 
@@ -81,9 +83,14 @@ public class LoginServlet extends HttpServlet {
             }
             //se o parametro permissao for site
             else if(request.getParameter("permissao").equals("site")){
-                System.out.println("Go to listagem de promocao de site");
+                SiteDAO siteDAO = new SiteDAO(dataSource);
+                Site site = null;
+                site = siteDAO.listaSitePorUrl(request.getParameter("acao"));
+                if(site != null && site.getSenha().equals(lfb.getSenha())){
+                    System.out.println("Go to pesquisa de promocao por URL");
+                }
             }
-            
+          
         }catch(Exception e){
             e.printStackTrace();
         }
