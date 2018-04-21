@@ -9,13 +9,14 @@ import java.util.Date;
 
 /**
  *
- * @author Andre
+ * @author victo
  */
 public class Promocao {
+
     private int id;
-    private String url;
-    private String cnpj;
-    private double preco;
+    private Site url;
+    private Hotel cnpj;
+    private Double preco;
     private Date data_inicial;
     private Date data_final;
 
@@ -27,27 +28,27 @@ public class Promocao {
         this.id = id;
     }
 
-    public String getUrl() {
+    public Site getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
+    public void setUrl(Site url) {
         this.url = url;
     }
 
-    public String getCnpj() {
+    public Hotel getCnpj() {
         return cnpj;
     }
 
-    public void setCnpj(String cnpj) {
+    public void setCnpj(Hotel cnpj) {
         this.cnpj = cnpj;
     }
 
-    public double getPreco() {
+    public Double getPreco() {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(Double preco) {
         this.preco = preco;
     }
 
@@ -66,6 +67,4 @@ public class Promocao {
     public void setData_final(Date data_final) {
         this.data_final = data_final;
     }
-    
-    
 }

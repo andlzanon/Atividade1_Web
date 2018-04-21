@@ -49,7 +49,7 @@ public class SiteDAO {
     public Site listaSitePorUrl(String site) throws SQLException, NamingException{
         Site ret = null;
         try (Connection con = dataSource.getConnection();
-                PreparedStatement ps = con.prepareStatement(SITE_NOME_SQL)){
+                PreparedStatement ps = con.prepareStatement(SITE_NOME_SQL);) {
             ps.setString(1, site);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {

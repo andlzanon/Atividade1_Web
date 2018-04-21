@@ -85,6 +85,8 @@ public class LoginServlet extends HttpServlet {
                     if (hotel != null && hotel.getSenha().equals(lfb.getSenha())) {
                         if (request.getParameter("acao").equals("cadastro")) {
                             System.out.println("Go to cadastro de promocao");
+                            request.getSession().setAttribute("cnpj_hotel", lfb.getUsuario());
+                            request.getRequestDispatcher("promocaoForm.jsp").forward(request, response);
                         } else {
                             System.out.println("Go to listagem de promocao de hotel");
                         }

@@ -3,7 +3,9 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:remove scope="session" var="novoHotel" />
 <c:remove scope="session" var="novoSite"/>
+<c:remove scope="session" var="novaPromocao"/>
 <c:remove scope="session" var="dadosLogin"/>
+<c:remove scope="session" var="cnpj_hotel"/>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
