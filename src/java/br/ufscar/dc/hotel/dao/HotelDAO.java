@@ -33,7 +33,7 @@ public class HotelDAO {
             "select cnpj, nome, cidade from Hotel where cidade = ?";
     
     private final static String LISTAR_HOTEL_NOME_SQL = 
-            "select cnpj, nome, cidade, senha from Hotel where nome = ?";
+            "select cnpj, nome, cidade, senha from Hotel where cnpj = ?";
     
     private DataSource dataSource;
 

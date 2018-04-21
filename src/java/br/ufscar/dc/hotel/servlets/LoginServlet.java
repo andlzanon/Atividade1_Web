@@ -67,6 +67,7 @@ public class LoginServlet extends HttpServlet {
                         //senao vai para a tela de cadastro de hotel
                         if (request.getParameter("acao").equals("site")) {
                             System.out.println("Go to cadastro de site");
+                            request.getRequestDispatcher("siteForm.jsp").forward(request, response);
                         } else {
                             System.out.println("Go to cadastro de hotel");
                             request.getRequestDispatcher("hotelForm.jsp").forward(request, response);
