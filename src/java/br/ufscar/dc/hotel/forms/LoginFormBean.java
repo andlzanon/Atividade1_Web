@@ -5,6 +5,9 @@
  */
 package br.ufscar.dc.hotel.forms;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Andre
@@ -26,5 +29,16 @@ public class LoginFormBean {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+    
+    public List validar(){
+        List<String> mensagens = new ArrayList<String>();
+        if(usuario.trim().length() == 0){
+            mensagens.add("Usuario não pode ser vazio!");
+        }
+        if(senha.trim().length() == 0){
+            mensagens.add("Senha não pode ser vazia!");
+        }
+        return (mensagens.isEmpty() ? null : mensagens);
     }
 }

@@ -14,6 +14,8 @@ import br.ufscar.dc.hotel.dao.SiteDAO;
 import br.ufscar.dc.hotel.forms.LoginFormBean;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -51,49 +53,75 @@ public class LoginServlet extends HttpServlet {
             System.out.println("Parametro: " +request.getParameter("permissao"));
             System.out.println("Ususario: " +lfb.getUsuario());
             System.out.println("Senha: " +lfb.getSenha());
+            
+            List<String> mensagens = lfb.validar();
             //se o parametro permissao for adm verifica se o mesmo existe
-            if(request.getParameter("permissao").equals("adm")){
-                AdministradorDAO administradorDAO = new AdministradorDAO(dataSource);
-                Administrador adm = null;
-                adm = administradorDAO.listarAdmPorNome(lfb.getUsuario());
-                if(adm != null && adm.getSenha().equals(lfb.getSenha())){
-                    System.out.println("Deu bom");
-                    //se o segundo parametro for site vai para a tela de cadastro de site
-                    //senao vai para a tela de cadastro de hotel
-                    if (request.getParameter("acao").equals("site")) {
-                        System.out.println("Go to cadastro de site");
-                    } else {
-                        System.out.println("Go to cadastro de hotel");
+            if (mensagens == null) {
+                if (request.getParameter("permissao").equals("adm")) {
+                    AdministradorDAO administradorDAO = new AdministradorDAO(dataSource);
+                    Administrador adm = null;
+                    adm = administradorDAO.listarAdmPorNome(lfb.getUsuario());
+                    if (adm != null && adm.getSenha().equals(lfb.getSenha())) {
+                        System.out.println("Deu bom");
+                        //se o segundo parametro for site vai para a tela de cadastro de site
+                        //senao vai para a tela de cadastro de hotel
+                        if (request.getParameter("acao").equals("site")) {
+                            System.out.println("Go to cadastro de site");
+                        } else {
+                            System.out.println("Go to cadastro de hotel");
+                            request.getRequestDispatcher("hotelForm.jsp").forward(request, response);
+                        }
+                    }
+                    //erro de autenticação de login
+                    else{
+                        erroDeLogin(mensagens, lfb, request, response);
+                    }
+                } //se o parametro permissao for hotel
+                else if (request.getParameter("permissao").equals("hotel")) {
+                    HotelDAO hotelDAO = new HotelDAO(dataSource);
+                    Hotel hotel = null;
+                    hotel = hotelDAO.listarHotelPorNome(lfb.getUsuario());
+                    if (hotel != null && hotel.getSenha().equals(lfb.getSenha())) {
+                        if (request.getParameter("acao").equals("cadastro")) {
+                            System.out.println("Go to cadastro de promocao");
+                        } else {
+                            System.out.println("Go to listagem de promocao de hotel");
+                        }
+                    }
+                    else{
+                        erroDeLogin(mensagens, lfb, request, response);
+                    }
+                } //se o parametro permissao for site
+                else if (request.getParameter("permissao").equals("site")) {
+                    SiteDAO siteDAO = new SiteDAO(dataSource);
+                    Site site = null;
+                    site = siteDAO.listaSitePorUrl(request.getParameter("acao"));
+                    if (site != null && site.getSenha().equals(lfb.getSenha())) {
+                        System.out.println("Go to pesquisa de promocao por URL");
+                    }
+                    else{
+                        erroDeLogin(mensagens, lfb, request, response);
                     }
                 }
             }
-            //se o parametro permissao for hotel
-            else if(request.getParameter("permissao").equals("hotel")){
-                HotelDAO hotelDAO = new HotelDAO(dataSource);
-                Hotel hotel = null;
-                hotel = hotelDAO.listarHotelPorNome(lfb.getUsuario());
-                if(hotel != null && hotel.getSenha().equals(lfb.getSenha())){
-                    if (request.getParameter("acao").equals("cadastro")) {
-                        System.out.println("Go to cadastro de promocao");
-                    } 
-                    else {
-                        System.out.println("Go to listagem de promocao de hotel");
-                    }
-                } 
-            }
-            //se o parametro permissao for site
-            else if(request.getParameter("permissao").equals("site")){
-                SiteDAO siteDAO = new SiteDAO(dataSource);
-                Site site = null;
-                site = siteDAO.listaSitePorUrl(request.getParameter("acao"));
-                if(site != null && site.getSenha().equals(lfb.getSenha())){
-                    System.out.println("Go to pesquisa de promocao por URL");
-                }
+            else{
+                request.setAttribute("mensagens", mensagens);
+                request.getRequestDispatcher("login.jsp").forward(request, response);
             }
           
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+    
+    private void erroDeLogin(List<String> mensagens, LoginFormBean lfb, HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException{
+        mensagens = new ArrayList<String>();
+        mensagens.add("Erro ao realizar login.");
+        mensagens.add("Verifique se usuário e senha estão corretos");
+        request.getSession().setAttribute("dadosLogin", lfb);
+        request.setAttribute("mensagens", mensagens);
+        request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

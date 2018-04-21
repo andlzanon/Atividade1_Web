@@ -3,13 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/André/Documents/NetBeansProjects/AtividadeAvaliativa1/src/java/br/ufscar/dc/hotel/dao/HotelDAO.java</file>
-            <file>file:/C:/Users/André/Documents/NetBeansProjects/AtividadeAvaliativa1/src/java/br/ufscar/dc/hotel/servlets/VerHoteisServlet.java</file>
-            <file>file:/C:/Users/André/Documents/NetBeansProjects/AtividadeAvaliativa1/src/java/br/ufscar/dc/hotel/dao/SiteDAO.java</file>
+            <file>file:/C:/Users/André/Documents/NetBeansProjects/AtividadeAvaliativa1/src/java/br/ufscar/dc/hotel/forms/NovoHotelFormBean.java</file>
+            <file>file:/C:/Users/André/Documents/NetBeansProjects/AtividadeAvaliativa1/web/hotelForm.jsp</file>
+            <file>file:/C:/Users/André/Documents/NetBeansProjects/AtividadeAvaliativa1/src/java/br/ufscar/dc/hotel/servlets/GravarHotelServlet.java</file>
             <file>file:/C:/Users/André/Documents/NetBeansProjects/AtividadeAvaliativa1/web/index.jsp</file>
             <file>file:/C:/Users/André/Documents/NetBeansProjects/AtividadeAvaliativa1/web/login.jsp</file>
+            <file>file:/C:/Users/André/Documents/NetBeansProjects/AtividadeAvaliativa1/src/java/br/ufscar/dc/hotel/servlets/NovoHotelServlet.java</file>
             <file>file:/C:/Users/André/Documents/NetBeansProjects/AtividadeAvaliativa1/src/java/br/ufscar/dc/hotel/servlets/LoginServlet.java</file>
-            <file>file:/C:/Users/André/Documents/NetBeansProjects/AtividadeAvaliativa1/src/java/br/ufscar/dc/hotel/dao/AdministradorDAO.java</file>
+            <file>file:/C:/Users/André/Documents/NetBeansProjects/AtividadeAvaliativa1/web/confirmarNovoHotel.jsp</file>
             <file>file:/C:/Users/André/Documents/NetBeansProjects/AtividadeAvaliativa1/src/java/br/ufscar/dc/hotel/forms/LoginFormBean.java</file>
         </group>
     </open-files>

@@ -3,6 +3,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:remove scope="session" var="novoHotel" />
 <c:remove scope="session" var="novoSite"/>
+<c:remove scope="session" var="dadosLogin"/>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -12,6 +13,10 @@
     <body>
         <h1>Bem-vindo ao Bookking do DC!</h1>
         <hr>
+        <c:if test="${!empty mensagem}">
+            ${mensagem}
+            <hr>
+        </c:if>
         <p>Escolha o que deseja fazer:</p>
         <a href="login.jsp?permissao=adm&acao=site">Cadastrar de Site de Reservas</a><br/>
         <a href="login.jsp?permissao=adm&acao=hotel">Cadastrar Hotel</a><br/>

@@ -1,6 +1,7 @@
 <%@page import="org.apache.commons.beanutils.BeanUtils"%>
 <%@page import="br.ufscar.dc.hotel.forms.SiteFormBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <%  
             //recebe o parametro que vem do index.jsp e depois o insere como
@@ -28,10 +29,18 @@
     <body>
         <h1>Login de <%=titulo%></h1>
         <hr>
+        <c:if test="${!empty requestScope.mensagens}">
+            <ul class="erro">
+                <c:forEach items="${requestScope.mensagens}" var="mensagem">
+                    <li>${mensagem}</li>
+                    </c:forEach>
+            </ul>
+            <hr>
+        </c:if>
         <form action="LoginServlet?permissao=<%=param%>&acao=<%=param2%>" method="post">
             Digite seus dados:<br/>
-            Usuário: <input name="usuario" type="text" value="" /><br/>
-            Senha: <input name="senha" type="text" value="" /><br/>
+            Usuário: <input name="usuario" type="text" value="${sessionScope.dadosLogin.usuario}" /><br/>
+            Senha: <input name="senha" type="password" value="${sessionScope.dadosLogin.senha}" /><br/>
             <input type="submit" value="Entrar"/>
         </form>
     </body>
