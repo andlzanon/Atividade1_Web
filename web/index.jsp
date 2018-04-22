@@ -24,15 +24,12 @@
         <a href="login.jsp?permissao=adm&acao=hotel">Cadastrar Hotel</a><br/>
         <a href="VerHoteisServlet">Hoteis Cadastrados</a><br/>
         <a href="login.jsp?permissao=hotel&acao=cadastro">Criação de promoção de hotel</a><br/>
-        <a href="login.jsp?permissao=hotel&acao=listagem">Promoções vigentes</a><br/>
+        <a href="login.jsp?permissao=hotel&acao=listagem">Promoções vigentes de hotel</a><br/>
+        <a href="login.jsp?permissao=site&acao=sitelist">Promoções vigentes de site</a><br/>
         
         <form action="VerHoteisServlet" method="post">
             <a>Pesquisar por cidade:</a><input name="cidade" type="text" value=""/> <input type="submit" value="Procurar"/>
         </form>
-        
-        <form action="login.jsp?permissao=site&acao=sitelist" method="post">
-            <a>Pesquisar promoções por site:</a><input name="site" type="text" value=""/> <input type="submit" value="Procurar"/>
-        </form>
-        
+          
     </body>
 </html>

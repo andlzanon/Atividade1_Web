@@ -97,9 +97,8 @@ public class LoginServlet extends HttpServlet {
                 } //se o parametro permissao for site
                 else if (request.getParameter("permissao").equals("site")) {
                     SiteDAO siteDAO = new SiteDAO(dataSource);
-                    Site site = null;
-                    site = siteDAO.listaSitePorUrl(request.getParameter("acao"));
-                    if (site != null && site.getSenha().equals(lfb.getSenha())) {
+                    Site siteLogin = siteDAO.listaSitePorUrl(lfb.getUsuario());
+                    if (siteLogin != null && siteLogin.getSenha().equals(lfb.getSenha())) {
                         System.out.println("Go to pesquisa de promocao por URL");
                     }
                     else{

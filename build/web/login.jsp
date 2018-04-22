@@ -8,14 +8,7 @@
             //parametro para a permissao no servlet
             String param = request.getParameter("permissao");
             String param2 = request.getParameter("acao");
-            //somente primera letra em maiuscula para o head da tela de login
-            if(param2.equals("sitelist")){
-                //cria formBeans, acessa com o get e da um override no parametro acao
-                //somente no caso em que for pesquisado promocoes por site
-                SiteFormBean sfb = new SiteFormBean();
-                BeanUtils.populate(sfb, request.getParameterMap());
-                param2 = sfb.getSite();
-            }
+            
             String titulo = param.substring(0, 1).toUpperCase() + param.substring(1, param.length());
             System.out.println("Param1: "+param);
             System.out.println("Param2: "+param2);
