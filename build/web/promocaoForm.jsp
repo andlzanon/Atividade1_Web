@@ -23,7 +23,7 @@
             Digite seus dados:<br/>
             URL do Site: <input name="url" type="text" value="${sessionScope.novaPromocao.url}" /><br/>
             CNPJ do Hotel: <input name="cnpj" type="text" disabled="disabled" value="${sessionScope.cnpj_hotel}" /><br/>
-            Preço: <input name="preco" type="number" value="${sessionScope.novaPromocao.preco}" /><br/>
+            Preço: <input name="preco" type="number" step="any" value="${sessionScope.novaPromocao.preco}" /><br/>
             Data inicial: <input name="data_inicial" type="text" value="${sessionScope.novaPromocao.data_inicial}" /><br/>
             Data final: <input name="data_final" type="text" value="${sessionScope.novaPromocao.data_final}" /><br/>
             <input type="submit" value="Enviar"/>
