@@ -5,32 +5,27 @@
  */
 package br.ufscar.dc.hotel.servlets;
 
-import br.ufscar.dc.hotel.beans.Hotel;
-import br.ufscar.dc.hotel.dao.HotelDAO;
-import br.ufscar.dc.hotel.forms.CidadeFormBean;
+
+import br.ufscar.dc.hotel.beans.Promocao;
+import br.ufscar.dc.hotel.dao.PromocaoDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.reflect.InvocationTargetException;
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
-import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.PropertyUtils;
 
 /**
  *
- * @author Andre
+ * @author victo
  */
-@WebServlet(name = "VerHoteisServlet", urlPatterns = {"/VerHoteisServlet"})
-public class VerHoteisServlet extends HttpServlet {
-    
+@WebServlet(name = "VerPromocaoHotelServlet", urlPatterns = {"/VerPromocaoHotelServlet"})
+public class VerPromocaoHotelServlet extends HttpServlet {
+
     @Resource(name = "jdbc/ReservaHotelDBLocal")
     DataSource dataSource;
 
@@ -46,31 +41,20 @@ public class VerHoteisServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        PromocaoDAO pdao = new PromocaoDAO(dataSource);
+        
+        //pega o usuario da tela de login
+        String cnpj = (String) request.getSession().getAttribute("usuario");
+        System.out.println("Usuário da lista de hoteis: " +cnpj);
+        
+        List<Promocao> todasPromocoes = new ArrayList<>();
+        
         try {
-            CidadeFormBean cpfb = new CidadeFormBean();
-            BeanUtils.populate(cpfb, request.getParameterMap());
-            String cidade = cpfb.getCidade();
-            HotelDAO hotelDAO = new HotelDAO(dataSource);
-            List<Hotel> hoteis = null;
-            try{
-                if(cidade == null){
-                    System.out.println("Cidade=" +cidade);
-                    hoteis = hotelDAO.listarTodosHoteis();
-                }else{
-                    System.out.println("Cidade Completa=" +cidade);
-                    hoteis = hotelDAO.listarHoteisPorCidade(cidade);
-                }
-                request.setAttribute("listaHoteis", hoteis);
-                request.getRequestDispatcher("listaHotel.jsp").forward(request, response);
-            }catch(Exception e){
-                e.printStackTrace();
-                //request.setAttribute("erro", e);
-                //request.getRequestDispatcher("listaHotel.jsp").forward(request, response);
-                ///TO DO: TELA DE ERRO!!!!!
-            }
-            
-            
-        }catch(Exception e){
+            todasPromocoes = pdao.listarPromocaoHotel(cnpj);
+
+            request.setAttribute("listaPromocaoHotel", todasPromocoes);
+            request.getRequestDispatcher("listaPromocaoHotel.jsp").forward(request, response);
+        } catch (Exception e) {
             request.setAttribute("mensagem", e.getLocalizedMessage());
             request.getRequestDispatcher("erro.jsp").forward(request, response);
         }

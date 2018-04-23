@@ -1,5 +1,4 @@
 <%@page import="org.apache.commons.beanutils.BeanUtils"%>
-<%@page import="br.ufscar.dc.hotel.forms.SiteFormBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>

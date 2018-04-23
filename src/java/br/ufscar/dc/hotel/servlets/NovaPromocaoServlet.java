@@ -102,7 +102,8 @@ public class NovaPromocaoServlet extends HttpServlet {
                 request.getRequestDispatcher("promocaoForm.jsp").forward(request, response);
             }
         }catch(Exception e){
-            e.printStackTrace();
+            request.setAttribute("mensagem", e.getLocalizedMessage());
+            request.getRequestDispatcher("erro.jsp").forward(request, response);
         }
     }
 

@@ -88,7 +88,9 @@ public class LoginServlet extends HttpServlet {
                             request.getSession().setAttribute("cnpj_hotel", lfb.getUsuario());
                             request.getRequestDispatcher("promocaoForm.jsp").forward(request, response);
                         } else {
+                            request.getSession().setAttribute("usuario", lfb.getUsuario());
                             System.out.println("Go to listagem de promocao de hotel");
+                            request.getRequestDispatcher("VerPromocaoHotelServlet").forward(request, response);
                         }
                     }
                     else{
@@ -99,7 +101,9 @@ public class LoginServlet extends HttpServlet {
                     SiteDAO siteDAO = new SiteDAO(dataSource);
                     Site siteLogin = siteDAO.listaSitePorUrl(lfb.getUsuario());
                     if (siteLogin != null && siteLogin.getSenha().equals(lfb.getSenha())) {
+                        request.getSession().setAttribute("usuario", lfb.getUsuario());
                         System.out.println("Go to pesquisa de promocao por URL");
+                        request.getRequestDispatcher("VerPromocaoSiteServlet").forward(request, response);
                     }
                     else{
                         erroDeLogin(mensagens, lfb, request, response);
@@ -112,7 +116,8 @@ public class LoginServlet extends HttpServlet {
             }
           
         }catch(Exception e){
-            e.printStackTrace();
+            request.setAttribute("mensagem", e.getLocalizedMessage());
+            request.getRequestDispatcher("erro.jsp").forward(request, response);
         }
     }
     

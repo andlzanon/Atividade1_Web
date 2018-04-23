@@ -48,7 +48,8 @@ public class NovoHotelServlet extends HttpServlet {
                 request.getRequestDispatcher("hotelForm.jsp").forward(request, response);
             }
         }catch(Exception e){
-            e.printStackTrace();
+            request.setAttribute("mensagem", e.getLocalizedMessage());
+            request.getRequestDispatcher("erro.jsp").forward(request, response);
         }
     }
 
